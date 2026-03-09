@@ -62,28 +62,39 @@ export const GameBoard: React.FC<Props> = ({ config, onRestart, onChangeDifficul
       <div className="text-center mb-2">
         <span className="text-sm uppercase tracking-widest opacity-70">Categoría</span>
         <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400">{wordData.category}</h3>
+        <span className="text-sm opacity-70 capitalize">
+          Dificultad: <strong>{config.difficulty}</strong>
+        </span>
       </div>
 
-      <HangmanVisual maxAttempts={config.maxAttempts} failedAttempts={failedLetters.length} />
-      
-      <WordDisplay word={word} guessedLetters={guessedLetters} isGameOver={gameState !== 'playing'} />
-      
-      <div className="min-h-[3rem] my-4">
-        {failedLetters.length > 0 && (
-          <div className="text-center">
-            <span className="text-sm opacity-70 mr-2">Letras falladas:</span>
-            <span className="text-red-500 dark:text-red-400 font-medium tracking-widest">
-              {failedLetters.join(', ')}
-            </span>
+      <div className="flex flex-row w-full gap-8 mt-4 items-start justify-center">
+        {/* Left column: Hangman drawing */}
+        <div className="flex-shrink-0">
+          <HangmanVisual maxAttempts={config.maxAttempts} failedAttempts={failedLetters.length} />
+        </div>
+
+        {/* Right column: Word, failed letters, keyboard */}
+        <div className="flex flex-col items-center flex-1">
+          <WordDisplay word={word} guessedLetters={guessedLetters} isGameOver={gameState !== 'playing'} />
+
+          <div className="min-h-[3rem] my-4">
+            {failedLetters.length > 0 && (
+              <div className="text-center">
+                <span className="text-sm opacity-70 mr-2">Letras falladas:</span>
+                <span className="text-red-500 dark:text-red-400 font-medium tracking-widest">
+                  {failedLetters.join(', ')}
+                </span>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      <Keyboard 
-        guessedLetters={guessedLetters} 
-        onGuess={handleGuess} 
-        disabled={gameState !== 'playing'} 
-      />
+          <Keyboard
+            guessedLetters={guessedLetters}
+            onGuess={handleGuess}
+            disabled={gameState !== 'playing'}
+          />
+        </div>
+      </div>
 
       {/* Result Modal Overlay */}
       {gameState !== 'playing' && (
