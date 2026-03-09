@@ -15,6 +15,7 @@ export const GameBoard: React.FC<Props> = ({ config, onRestart, onChangeDifficul
   const [wordData, setWordData] = useState<WordData | null>(null);
   const [guessedLetters, setGuessedLetters] = useState<Set<string>>(new Set());
   const [gameState, setGameState] = useState<GameState>('playing');
+  const [isTime, setIsTime] = useState<boolean>(false);
 
   const initGame = useCallback(() => {
     setGuessedLetters(new Set());
@@ -26,6 +27,17 @@ export const GameBoard: React.FC<Props> = ({ config, onRestart, onChangeDifficul
   useEffect(() => {
     initGame();
   }, [initGame]);
+
+  useEffect(() => {
+    if (gameState === 'won' || gameState === 'lost') {
+      const timer = setTimeout(() => {
+        setIsTime(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    } else {
+      setIsTime(false);
+    }
+  }, [gameState]);
 
   const handleGuess = useCallback((letter: string) => {
     if (gameState !== 'playing' || guessedLetters.has(letter) || !wordData) return;
@@ -97,7 +109,7 @@ export const GameBoard: React.FC<Props> = ({ config, onRestart, onChangeDifficul
       </div>
 
       {/* Result Modal Overlay */}
-      {gameState !== 'playing' && (
+      {gameState !== 'playing' && isTime && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4 text-center transform animate-in zoom-in-95 duration-300">
             <h2 className={`text-3xl font-bold mb-2 ${gameState === 'won' ? 'text-green-500' : 'text-red-500'}`}>
