@@ -1,0 +1,5 @@
+{
+  "name": "Hangman App",
+  "description": "A modern, conversational Hangman game.",
+  "requestFramePermissions": []
+}
