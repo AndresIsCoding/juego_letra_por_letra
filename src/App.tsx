@@ -31,7 +31,7 @@ export default function App() {
             aria-label="Go to home"
           >
             <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 hover:opacity-80 transition-opacity cursor-pointer">
-              Ahorcado
+              Hangman App
             </h1>
           </button>
           <button

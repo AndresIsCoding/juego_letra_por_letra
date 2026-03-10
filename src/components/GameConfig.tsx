@@ -15,7 +15,7 @@ export const GameConfig: React.FC<Props> = ({ onSelectDifficulty }) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-8 p-6 text-center animate-in fade-in zoom-in duration-500">
       <div className="max-w-md space-y-4">
-        <h2 className="text-2xl font-semibold">¡Bienvenido al Ahorcado!</h2>
+        <h2 className="text-2xl font-semibold">¡Bienvenido a Hangman App!</h2>
         <p className="text-lg opacity-80">
           Selecciona un nivel de dificultad para empezar a jugar.
         </p>
